@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<name>Data structure inventory</name>
+	<key>archisw</key>
+	<state>stable</state>
+	<!-- stable | unstable | beta | alpha -->
+	<logo>https://raw.githubusercontent.com/ericferon/glpi-archidata/master/dataelement.png</logo>
+	<description>
+		<short>
+			<en>Inventory of your data structures. A data structure can be composed by several data elements.</en>
+			<fr>Inventaire de vos structures de données. Une structure de donnée peut être formée de plusieurs éléments.</fr>
+		</short>
+		<long>
+			<en>Inventory of your data structures.<br/>An data structures can be composed by a tree with several levels of data elements.<br/>You can associate these data structures with other inventory elements (master application, databases, dataflows, ...)</en>
+			<fr>Inventaire de vos structures de données.<br/>Une structures de données peut être formée par une arborescence à plusieurs niveaux d'autres éléments.<br/>Ces structures de données peuvent être associés à d'autres éléments d'inventaire (application maître, serveurs, bases de données, flux de données, ...)</fr>
+		</long>
+	</description>
+	<homepage>https://github.com/ericferon/glpi-archidata</homepage>
+	<download>https://github.com/ericferon/glpi-archidata/releases</download>
+	<issues>https://github.com/ericferon/glpi-archidata/issues</issues>
+	<readme>https://github.com/ericferon/glpi-archidata/blob/master/README.md</readme>
+	<authors>
+		<author>Eric Feron</author>
+	</authors>
+	<versions>
+		<version>
+			<num>1.0.4</num>
+			<compatibility>~9.5.0 || ~10.0.0</compatibility>
+			<download_url>https://github.com/ericferon/glpi-archisw/releases/download/v1.0.4/archisw-v1.0.4.tar.gz</download_url>
+		</version>
+		<version>
+			<num>1.0.3</num>
+			<compatibility>~9.5.0 || ~10.0.0</compatibility>
+			<download_url>https://github.com/ericferon/glpi-archisw/releases/download/v1.0.3/archisw-v1.0.3.tar.gz</download_url>
+		</version>
+		<version>
+			<num>1.0.2</num>
+			<compatibility>~9.4.0</compatibility>
+			<download_url>https://github.com/ericferon/glpi-archisw/releases/download/v1.0.2/archisw-v1.0.2.tar.gz</download_url>
+		</version>
+	</versions>
+	<langs>
+		<lang>en_GB</lang>
+		<lang>fr_FR</lang>
+	</langs>
+	<license>GPL v2+</license>
+	<tags>
+		<en>
+			<tag>Inventory</tag>
+			<tag>Architecture</tag>
+			<tag>Data</tag>
+		</en>
+		<fr>
+			<tag>Inventaire</tag>
+			<tag>Architecture</tag>
+			<tag>Données</tag>
+		</fr>
+	</tags>
+	<screenshots>
+    </screenshots>
+</root>

@@ -63,11 +63,11 @@ class PluginDatainjectionDataelementInjection extends PluginArchidataDataelement
       //Remove some options because some fields cannot be imported
       $notimportable            = [13, 30, 80];
       $options['ignore_fields'] = $notimportable;
-      $options['displaytype']   = ["dropdown"       => [2, 4, 6, 7, 8, 9, 10, 11, 12],
+      $options['displaytype']   = ["dropdown"       => [4, 5, 6, 11, 12],
                                    "user"           => [11],
-                                   "multiline_text" => [3, 5],
-                                   "date"           => [14, 16],
-                                   "bool"           => [15]];
+                                   "multiline_text" => [2],
+                                   "date"           => [16],
+                                   "bool"           => []];
 
       return PluginDatainjectionCommonInjectionLib::addToSearchOptions($tab, $options, $this);
 

@@ -36,13 +36,18 @@ class PluginArchidataMenu extends CommonGLPI {
 
       $menu                                           = array();
       $menu['title']                                  = self::getMenuName();
-      $menu['page']                                   = "/plugins/archidata/front/dataelement.php";
+      $menu['page']                                   = "/".Plugin::getWebDir("archidata", false)."/front/dataelement.php";
       $menu['links']['search']                        = PluginArchidataDataelement::getSearchURL(false);
       if (PluginArchidataDataelement::canCreate()) {
          $menu['links']['add']                        = PluginArchidataDataelement::getFormURL(false);
       }
+      $menu['icon'] = self::getIcon();
 
       return $menu;
+   }
+
+   static function getIcon() {
+      return "fas fa-table";
    }
 
    static function removeRightsFromSession() {

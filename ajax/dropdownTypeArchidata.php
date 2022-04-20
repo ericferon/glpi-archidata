@@ -25,9 +25,8 @@
  */
 
 if (strpos($_SERVER['PHP_SELF'],"dropdownTypeArchidata.php")) {
-	define('GLPI_ROOT', '../../..');
 	$AJAX_INCLUDE=1;
-	include (GLPI_ROOT."/inc/includes.php");
+	include (Plugin::getPhpDir("archidata")."/inc/includes.php");
 	header("Content-Type: text/html; charset=UTF-8");
 	header_nocache();
 }
@@ -51,11 +50,11 @@ if (isset($_POST["swcomponenttype"])) {
    }
 
    Dropdown::show('PluginArchidaraDataelement',
-                  array('name'      => $_POST['myname'],
-                        'used'      => $used,
-                        'width'     => '50%',
-                        'entity'    => $_POST['entity'],
-                        'rand'      => $_POST['rand'],
-                        'condition' => "glpi_plugin_archidata_dataelements.plugin_archidata_dataelementtypes_id='".$_POST["dataelementtype"]."'"));
+                  ['name'      => $_POST['myname'],
+					'used'      => $used,
+                    'width'     => '50%',
+                    'entity'    => $_POST['entity'],
+                    'rand'      => $_POST['rand'],
+                    'condition' => ["glpi_plugin_archidata_dataelements.plugin_archidata_dataelementtypes_id"=>$_POST["dataelementtype"]]]);
 }
 ?>

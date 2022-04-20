@@ -1,0 +1,162 @@
+# French translations for PACKAGE package.
+# Copyright (C) 2022 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Eric Feron <ericferon@scarlet.be>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-20 16:35+0200\n"
+"PO-Revision-Date: 2022-04-20 16:48+0200\n"
+"Last-Translator: Eric Feron <ericferon@scarlet.be>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.3\n"
+
+#. TRANS : %1$s is the itemtype name,
+#. %2$s is the name of the item (used for headings of a list)
+#: inc/dataelement_item.class.php:506
+#, php-format
+msgid "%1$s = %2$s"
+msgstr ""
+
+#: inc/dataelement_item.class.php:234
+msgid "Add an item"
+msgstr "Ajouter un élément"
+
+#. completename of dataelement
+#: inc/dataelement.class.php:317
+msgid "As child of"
+msgstr "Comme enfant de"
+
+#: inc/profile.class.php:126 inc/profile.class.php:154
+msgid "Associable items to a ticket"
+msgstr "Elément associable à un ticket"
+
+#. is_helpdesk_visible
+#: inc/dataelement.class.php:373
+msgid "Associable to a ticket"
+msgstr "Elément associable à un ticket"
+
+#. association with glpi items
+#: hook.php:342
+msgid "Associate"
+msgstr "Associer"
+
+#: hook.php:353
+msgid "Associate to the Data Structure"
+msgstr "Associer à une Structure de Données"
+
+#. cardinality
+#: hook.php:177 inc/dataelement.class.php:347
+msgid "Cardinality"
+msgstr "Cardinalité"
+
+#. classification
+#: inc/dataelement.class.php:116 inc/dataelement.class.php:206
+#: inc/dataelement.class.php:358
+msgid "Classification level"
+msgstr "Niveau de confidentialité"
+
+#. comment about dataelement
+#: inc/dataelement.class.php:337
+msgid "Comment"
+msgstr "Commentaire"
+
+#. users
+#: inc/dataelement.class.php:122 inc/dataelement.class.php:215
+#: inc/dataelement.class.php:384
+msgid "Data Expert"
+msgstr "Expert des données"
+
+#. groups
+#: inc/dataelement.class.php:129 inc/dataelement.class.php:225
+#: inc/dataelement.class.php:380
+msgid "Data Owner"
+msgstr "Propriétaire des Données"
+
+#: inc/dataelement.class.php:154 inc/dataelement.class.php:264
+msgid "Data Structure"
+msgstr "Structure de Données"
+
+#. description of dataelement
+#: inc/dataelement.class.php:330
+msgid "Description"
+msgstr "Description"
+
+#: hook.php:343
+msgid "Dissociate"
+msgstr "Dissocier"
+
+#. duplicate a dataelement
+#: hook.php:347
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+#: inc/dataelement.class.php:159 inc/dataelement.class.php:272
+#: inc/dataelement_item.class.php:273 inc/dataelement_item.class.php:492
+msgid "Entity"
+msgstr "Entité"
+
+#: inc/profile.class.php:119
+msgid "General"
+msgstr "Général"
+
+#: inc/profile.class.php:122
+msgid "Helpdesk"
+msgstr "Assistance"
+
+#: inc/dataelement.class.php:149 inc/dataelement.class.php:159
+#: inc/dataelement.class.php:256 inc/dataelement.class.php:272
+msgid "ID"
+msgstr "ID"
+
+#: inc/dataelement_item.class.php:275
+msgid "Inventory number"
+msgstr "Numéro d'inventaire"
+
+#: inc/dataelement.class.php:144 inc/dataelement.class.php:235
+msgid "Last update"
+msgstr "Dernière mise à jour"
+
+#. level of dataelement
+#: inc/dataelement.class.php:104 inc/dataelement.class.php:188
+#: inc/dataelement.class.php:322
+msgid "Level"
+msgstr "Niveau"
+
+#. master application
+#: inc/dataelement.class.php:354
+msgid "Master application"
+msgstr "Application Maître"
+
+#. name of dataelement
+#: hook.php:204 inc/dataelement.class.php:98 inc/dataelement.class.php:179
+#: inc/dataelement.class.php:309 inc/dataelement_item.class.php:271
+#: inc/dataelement_item.class.php:490
+msgid "Name"
+msgstr "Nom"
+
+#: inc/dataelement_item.class.php:274
+msgid "Serial number"
+msgstr "Numéro de série"
+
+#. tranfer archidata to another entity
+#: hook.php:345 inc/dataelement.class.php:537
+msgid "Transfer"
+msgstr "Transfert"
+
+#. type
+#: hook.php:178 inc/dataelement.class.php:110 inc/dataelement.class.php:197
+#: inc/dataelement.class.php:343 inc/dataelement_item.class.php:270
+msgid "Type"
+msgstr "Type"
+
+#: inc/dataelement.class.php:367
+msgid "URL"
+msgstr "URL"

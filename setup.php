@@ -56,9 +56,9 @@ function plugin_init_archidata() {
 // Add other plugin associations
    $associatedtypes = array(
                     'PluginDatabasesDatabase',
-					'PluginWebapplicationsWebapplication',
 					'PluginArchiswSwcomponent',
-                    'PluginArchidataDataelement');
+                    'PluginArchidataDataelement'/*,
+					'PluginWebapplicationsWebapplication'*/);
    if (class_exists('PluginArchidataDataelement'))
 	  foreach ($associatedtypes as $itemtype) {
 		if (class_exists($itemtype)) {
@@ -94,11 +94,16 @@ function plugin_version_archidata() {
 
 	return array (
 		'name' => _n('Data structure', 'Data structures', 2, 'archidata'),
-		'version' => '1.0.0',
+		'version' => '1.0.4',
 		'author'=>'Eric Feron',
         'license' => 'GPLv2+',
         'homepage'=>'https://github.com/ericferon/glpi-archidata',
-        'minGlpiVersion' => '9.2',
+        'requirements' => [
+         'glpi' => [
+            'min' => '9.5',
+            'dev' => false
+         ]
+      ]
 	);
 
 }
@@ -106,8 +111,11 @@ function plugin_version_archidata() {
 // Optional : check prerequisites before install : may print errors or add to message after redirect
 function plugin_archidata_check_prerequisites() {
 	global $DB;
-   if (version_compare(GLPI_VERSION,'9.2','lt') || version_compare(GLPI_VERSION,'9.5','ge')) {
-      _e('This plugin requires GLPI >= 9.2 and < 9.5', 'archidata');
+   if (version_compare(GLPI_VERSION, '9.5', 'lt')
+       || version_compare(GLPI_VERSION, '10.1', 'ge')) {
+      if (method_exists('Plugin', 'messageIncompatible')) {
+         echo Plugin::messageIncompatible('core', '9.5');
+      }
       return false;
    }
    return true;

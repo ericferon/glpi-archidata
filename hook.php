@@ -27,14 +27,15 @@
 function plugin_archidata_install() {
    global $DB;
    
-   include_once (GLPI_ROOT."/plugins/archidata/inc/profile.class.php");
+   include_once (Plugin::getPhpDir("archidata")."/inc/profile.class.php");
    
    $update=false;
    if (!$DB->TableExists("glpi_plugin_archidata_dataelements")) {
       
-      $DB->runFile(GLPI_ROOT ."/plugins/archidata/sql/empty-1.0.0.sql");
-      $DB->runFile(GLPI_ROOT ."/plugins/archidata/sql/update-1.0.0.sql");
+      $DB->runFile(Plugin::getPhpDir("archidata")."/sql/empty-1.0.1.sql");
 
+   } else {
+      $DB->runFile(Plugin::getPhpDir("archidata")."/sql/update-1.0.1.sql");
    }
    if ($DB->TableExists("glpi_plugin_archidata_profiles")) {
    
@@ -92,18 +93,24 @@ function plugin_archidata_install() {
 function plugin_archidata_uninstall() {
 	global $DB;
 
-   include_once (GLPI_ROOT."/plugins/archidata/inc/profile.class.php");
-   include_once (GLPI_ROOT."/plugins/archidata/inc/menu.class.php");
+   include_once (Plugin::getPhpDir("archidata")."/inc/profile.class.php");
+   include_once (Plugin::getPhpDir("archidata")."/inc/menu.class.php");
    
 	$tables = array("glpi_plugin_archidata_dataelements",
 					"glpi_plugin_archidata_dataelements_items",
 					"glpi_plugin_archidata_profiles",
 					"glpi_plugin_archidata_dataelementcardinalities",
+					"glpi_plugin_archidata_dataelementclassifications",
 					"glpi_plugin_archidata_dataelementtypes");
 
 	foreach($tables as $table)
 		$DB->query("DROP TABLE IF EXISTS `$table`;");
    
+	$views = ["glpi_plugin_archidata_masterswcomponents"];
+				
+	foreach($views as $view)
+		$DB->query("DROP VIEW IF EXISTS `$view`;");
+
 	$tables_glpi = array("glpi_displaypreferences",
 					"glpi_documents_items",
 					"glpi_bookmarks",
@@ -306,7 +313,7 @@ function plugin_archidata_forceGroupBy($type) {
                if ($result_linked=$DB->query($query))
                   if ($DB->numrows($result_linked)) {
                      $item = new $itemtype();
-                     while ($data=$DB->fetch_assoc($result_linked)) {
+                     while ($data=$DB->fetchAssoc($result_linked)) {
                         if ($item->getFromDB($data['id'])) {
                            $out .= $item->getTypeName()." - ".$item->getLink()."<br>";
                         }

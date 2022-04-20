@@ -86,81 +86,6 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
 //      $temp->deleteByCriteria(array('plugin_archidata_dataelements_id' => $this->fields['id']));
    }
 
-   function getSearchOptions() {
-
-      $tab                       = array();
-      if (version_compare(GLPI_VERSION,'9.3','ge')) return $tab;
-
-      $tab['common']             = self::getTypeName(2);
-
-      $tab[1]['table']           = $this->getTable();
-      $tab[1]['field']           = 'name';
-      $tab[1]['name']            = __('Name');
-      $tab[1]['datatype']        = 'itemlink';
-      $tab[1]['itemlink_type']   = $this->getType();
-
-      $tab[3]['table']           = $this->getTable();
-      $tab[3]['field']           = 'level';
-      $tab[3]['name']            = __('Level');
-      $tab[3]['datatype']        = 'text';
-
-      $tab[5]['table']          = 'glpi_plugin_archidata_dataelementtypes';
-      $tab[5]['field']          = 'name';
-      $tab[5]['linkfield']      = 'plugin_archidata_dataelementtypes_id';
-      $tab[5]['name']           = __('Type');
-      $tab[5]['datatype']       = 'dropdown';
-
-      $tab[6]['table']          = 'glpi_plugin_archidata_dataelementclassifications';
-      $tab[6]['field']          = 'name';
-      $tab[6]['linkfield']      = 'plugin_archidata_dataelementclassifications_id';
-      $tab[6]['name']           = __('Classification level', 'archidata');
-      $tab[6]['datatype']       = 'dropdown';
-
-      $tab[11]['table']          = 'glpi_users';
-      $tab[11]['field']          = 'name';
-      $tab[11]['linkfield']      = 'users_id';
-      $tab[11]['name']           = __('Data Expert', 'archidata');
-      $tab[11]['datatype']       = 'dropdown';
-      $tab[11]['right']          = 'interface';
-
-      $tab[12]['table']          = 'glpi_groups';
-      $tab[12]['field']          = 'name';
-      $tab[12]['linkfield']      = 'groups_id';
-      $tab[12]['name']           = __('Data Owner', 'archidata');
-      $tab[12]['condition']      = '`is_assign`';
-      $tab[12]['datatype']       = 'dropdown';
-
-      $tab[13]['table']           = 'glpi_plugin_archidata_dataelements_items';
-      $tab[13]['field']           = 'items_id';
-      $tab[13]['nosearch']        = true;
-      $tab[13]['massiveaction']   = false;
-      $tab[13]['name']            = _n('Associated item' , 'Associated items', 2);
-      $tab[13]['forcegroupby']    = true;
-      $tab[13]['joinparams']      = array('jointype' => 'child');
-
-      $tab[14]['table']          = $this->getTable();
-      $tab[14]['field']          = 'date_mod';
-      $tab[14]['massiveaction']  = false;
-      $tab[14]['name']           = __('Last update');
-      $tab[14]['datatype']       = 'datetime';
-
-      $tab[30]['table']          = $this->getTable();
-      $tab[30]['field']          = 'id';
-      $tab[30]['name']           = __('ID');
-      $tab[30]['datatype']       = 'number';
-
-      $tab[80]['table']          = $this->getTable();
-      $tab[80]['field']          = 'completename';
-      $tab[80]['name']           = __('Data Structure', 'archidata');
-      $tab[80]['datatype']       = 'dropdown';
-      
-      $tab[81]['table']       = 'glpi_entities';
-      $tab[81]['field']       = 'entities_id';
-      $tab[81]['name']        = __('Entity')."-".__('ID');
-      
-      return $tab;
-   }
-
    // search fields from GLPI 9.3 on
    function rawSearchOptions() {
 
@@ -187,6 +112,15 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
          'field'    => 'level',
          'name'     => __('Level'),
          'datatype' => 'text'
+      ];
+
+      $tab[] = [
+         'id'       => '4',
+         'table'    => 'glpi_plugin_archidata_masterswcomponents',
+         'field'    => 'name',
+//         'name'     => PluginArchidataMasterSwcomponent::getTypeName(1),
+         'name'      => __('Master application', 'archidata'),
+         'datatype' => 'dropdown'
       ];
 
       $tab[] = [
@@ -350,17 +284,23 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
       echo "</tr>";
 
       echo "<tr class='tab_bg_1'>";
-      //url of data 
-      echo "<td>" . __('URL') . "</td>";
-      echo "<td>";
-      Html::autocompletionTextField($this, "address", array('size' => "65", 'attrs' => array('size' => 50)));
+      //master application
+      echo "<td>".__('Master application', 'archidata').": </td><td>";
+      Dropdown::show('PluginArchidataMasterSwcomponent', ['name' => "plugin_archidata_masterswcomponents_id", 'value' => $this->fields["plugin_archidata_masterswcomponents_id"],'entity' => $this->fields["entities_id"]]);
+      echo "</td>";
+      //classification
+      echo "<td>".__('Classification level', 'archidata')."</td><td>";
+      Dropdown::show('PluginArchidataDataelementClassification', array('value' => $this->fields["plugin_archidata_dataelementclassifications_id"]));
       echo "</td>";
       echo "</tr>";
 
       echo "<tr class='tab_bg_1'>";
-      //classification
-      echo "<td>".__('Classification level', 'archidata')."</td><td>";
-      Dropdown::show('PluginArchidataDataelementClassification', array('value' => $this->fields["plugin_archidata_dataelementclassifications_id"]));
+      //url of data 
+      echo "<td>";
+	  echo Html::link(__('URL'), $this->fields["address"]);
+      echo "</td>";
+      echo "<td>";
+      Html::autocompletionTextField($this, "address", array('size' => "65", 'attrs' => array('size' => 50)));
       echo "</td>";
       //is_helpdesk_visible
       echo "<td>" . __('Associable to a ticket') . "</td><td>";
@@ -371,11 +311,11 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
       echo "<tr class='tab_bg_1'>";
       //groups
       echo "<td>".__('Data Owner', 'archidata')."</td><td>";
-      Group::dropdown(array('name'      => 'groups_id', 'value'     => $this->fields['groups_id'], 'entity'    => $this->fields['entities_id'], 'condition' => '`is_assign`'));
+      Group::dropdown(['name' => "groups_id", 'value' => $this->fields["groups_id"], 'entity' => $this->fields["entities_id"], 'right' => 'interface']);
       echo "</td>";
       //users
       echo "<td>".__('Data Expert', 'archidata')."</td><td>";
-      User::dropdown(array('name' => "users_id", 'value' => $this->fields["users_id"], 'entity' => $this->fields["entities_id"], 'right' => 'interface'));
+      User::dropdown(['name' => "users_id", 'value' => $this->fields["users_id"], 'entity' => $this->fields["entities_id"], 'right' => 'interface']);
       echo "</td>";
       echo "</tr>";
 
@@ -432,7 +372,7 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
 
       $values = array(0 => Dropdown::EMPTY_VALUE);
 
-      while ($data = $DB->fetch_assoc($result)) {
+      while ($data = $DB->fetchAssoc($result)) {
          $values[$data['id']] = $data['name'];
       }
       $rand = mt_rand();
@@ -448,14 +388,14 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
                         'used'   => $p['used']);
 
       $out .= Ajax::updateItemOnSelectEvent($field_id,"show_".$p['name'].$rand,
-                                            $CFG_GLPI["root_doc"]."/plugins/archidata/ajax/dropdownTypeDataelements.php",
+                                            Plugin::getWebDir('archidata')."/ajax/dropdownTypeDataelements.php",
                                             $params, false);
       $out .= "<span id='show_".$p['name']."$rand'>";
       $out .= "</span>\n";
 
       $params['dataflowtype'] = 0;
       $out .= Ajax::updateItem("show_".$p['name'].$rand,
-                               $CFG_GLPI["root_doc"]. "/plugins/archidata/ajax/dropdownTypeDataelements.php",
+                               Plugin::getWebDir('archidata')."/plugins/archidata/ajax/dropdownTypeDataelements.php",
                                $params, false);
       if ($p['display']) {
          echo $out;

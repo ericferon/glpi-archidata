@@ -24,10 +24,9 @@
  --------------------------------------------------------------------------
  */
 
-define('GLPI_ROOT', '../../..');
-include (GLPI_ROOT . "/inc/includes.php");
+include (Plugin::getPhpDir("archidata")."/inc/includes.php");
 
 $dropdown = new PluginArchidataDataelementType();
-include (GLPI_ROOT . "/front/dropdown.common.form.php");
+include (Plugin::getPhpDir("archidata")."/front/dropdown.common.form.php");
 
 ?>

@@ -132,8 +132,9 @@ class PluginArchidataDataelement_Item extends CommonDBRelation {
       }
       $dbu = new DbUtils();
       return $dbu->countElementsInTable('glpi_plugin_archidata_dataelements_items',
-                                  "`itemtype` IN ('$types')
-                                   AND `plugin_archidata_dataelements_id` = '".$item->getID()."'");
+                                        ["plugin_archidata_dataelements_id" => $item->getID(),
+                                         "itemtype"                      => $item->getTypes()
+                                        ]);
    }
 
 
@@ -141,8 +142,8 @@ class PluginArchidataDataelement_Item extends CommonDBRelation {
 
       $dbu = new DbUtils();
       return $dbu->countElementsInTable('glpi_plugin_archidata_dataelements_items',
-                                  "`itemtype`='".$item->getType()."'
-                                   AND `items_id` = '".$item->getID()."'");
+                                        ["itemtype" => $item->getType(),
+                                         "items_id" => $item->getID()]);
    }
 
    function getFromDBbyArchiDatasAndItem($plugin_archidata_dataelements_id,$items_id,$itemtype) {
@@ -156,7 +157,7 @@ class PluginArchidataDataelement_Item extends CommonDBRelation {
          if ($DB->numrows($result) != 1) {
             return false;
          }
-         $this->fields = $DB->fetch_assoc($result);
+         $this->fields = $DB->fetchAssoc($result);
          if (is_array($this->fields) && count($this->fields)) {
             return true;
          } else {
@@ -177,7 +178,7 @@ class PluginArchidataDataelement_Item extends CommonDBRelation {
    function deleteItemByDataelementsAndItem($plugin_archidata_dataelements_id,$items_id,$itemtype) {
 
       if ($this->getFromDBbyArchiDatasAndItem($plugin_archidata_dataelements_id,$items_id,$itemtype)) {
-         $this->delete(array('id'=>$this->fields["id"]));
+         $this->delete(['id'=>$this->fields["id"]]);
       }
    }
 
@@ -306,7 +307,7 @@ class PluginArchidataDataelement_Item extends CommonDBRelation {
 
                   Session::initNavigateListItems($itemType,PluginArchidataDataelement::getTypeName(2)." = ".$dataelement->fields['name']);
 
-                  while ($data=$DB->fetch_assoc($result_linked)) {
+                  while ($data=$DB->fetchAssoc($result_linked)) {
 
                      $item->getFromDB($data["id"]);
 
@@ -410,7 +411,7 @@ class PluginArchidataDataelement_Item extends CommonDBRelation {
       $dataelement       = new PluginArchidataDataelement();
       $used          = array();
       if ($numrows = $DB->numrows($result)) {
-         while ($data = $DB->fetch_assoc($result)) {
+         while ($data = $DB->fetchAssoc($result)) {
             $dataflows[$data['assocID']] = $data;
             $used[$data['id']] = $data['id'];
          }
