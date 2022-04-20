@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <root>
 	<name>Data structure inventory</name>
 	<key>archisw</key>
@@ -24,19 +23,14 @@
 	</authors>
 	<versions>
 		<version>
+			<num>1.0.5</num>
+			<compatibility>~9.5.0 || ~10.0.0</compatibility>
+			<download_url>https://github.com/ericferon/glpi-archisw/releases/download/v1.0.5/archisw-v1.0.5.tar.gz</download_url>
+		</version>
+		<version>
 			<num>1.0.4</num>
 			<compatibility>~9.5.0 || ~10.0.0</compatibility>
 			<download_url>https://github.com/ericferon/glpi-archisw/releases/download/v1.0.4/archisw-v1.0.4.tar.gz</download_url>
-		</version>
-		<version>
-			<num>1.0.3</num>
-			<compatibility>~9.5.0 || ~10.0.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-archisw/releases/download/v1.0.3/archisw-v1.0.3.tar.gz</download_url>
-		</version>
-		<version>
-			<num>1.0.2</num>
-			<compatibility>~9.4.0</compatibility>
-			<download_url>https://github.com/ericferon/glpi-archisw/releases/download/v1.0.2/archisw-v1.0.2.tar.gz</download_url>
 		</version>
 	</versions>
 	<langs>
