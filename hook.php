@@ -32,10 +32,13 @@ function plugin_archidata_install() {
    $update=false;
    if (!$DB->TableExists("glpi_plugin_archidata_dataelements")) {
       
-      $DB->runFile(Plugin::getPhpDir("archidata")."/sql/empty-1.0.1.sql");
+      $DB->runFile(Plugin::getPhpDir("archidata")."/sql/empty-1.0.2.sql");
 
    } else {
-      $DB->runFile(Plugin::getPhpDir("archidata")."/sql/update-1.0.1.sql");
+		if ($DB->TableExists("glpi_plugin_archidata_dataelements") && (!$DB->FieldExists("glpi_plugin_archidata_dataelements","plugin_archidata_masterswcomponents_id"))) {
+			$DB->runFile(Plugin::getPhpDir("archidata")."/sql/update-1.0.1.sql");
+		}
+		$DB->runFile(Plugin::getPhpDir("archidata")."/sql/update-1.0.2.sql");
    }
    if ($DB->TableExists("glpi_plugin_archidata_profiles")) {
    
