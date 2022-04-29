@@ -29,22 +29,35 @@ if (!defined('GLPI_ROOT')){
 }
 
 /**
- * Class PluginDatainjectionDataelementInjection
+ * Class PluginArchidataDataelementInjection
  */
-class PluginDatainjectionDataelementInjection extends PluginArchidataDataelement
+class PluginArchidataDataelementInjection extends PluginArchidataDataelement
    implements PluginDatainjectionInjectionInterface {
 
-   function __construct() {
-      //Needed for getSearchOptions !
-      $this->table = getTableForItemType('PluginArchidataDataelement');
+   /**
+    * @param null $classname
+    *
+    * @return mixed
+    */
+   static function getTable($classname = null) {
+
+      $parenttype = get_parent_class();
+      return $parenttype::getTable();
+
    }
 
+   /**
+    * @return bool
+    */
    function isPrimaryType() {
       return true;
    }
 
+   /**
+    * @return array
+    */
    function connectedTo() {
-      return array();
+      return [];
    }
 
    /**
@@ -108,5 +121,3 @@ class PluginDatainjectionDataelementInjection extends PluginArchidataDataelement
    }
 
 }
-
-?>
