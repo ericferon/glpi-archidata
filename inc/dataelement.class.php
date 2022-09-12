@@ -242,7 +242,7 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
       //name of dataelement
       echo "<td>".__('Name')."</td>";
       echo "<td>";
-      Html::autocompletionTextField($this,"name",array('option' => "size=50"));
+      echo Html::input('name',['value' => $this->fields['name'], 'id' => "name" , 'size' => 50]);
       echo "</td>";
       echo "</tr>";
 
@@ -255,7 +255,7 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
       //level of dataelement
       echo "<td>".__('Level').": </td>";
       echo "<td>";
-      Html::autocompletionTextField($this,"level",array('size' => "2", 'option' => "readonly='readonly' size=2"));
+      echo Html::input('level',['value' => $this->fields['level'], 'id' => "level" , 'size' => 2, 'readonly' => true]);
       echo "</td>";
       echo "</tr>";
 
@@ -263,7 +263,7 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
       //description of dataelement
       echo "<td>".__('Description').":	</td>";
       echo "<td class='top center' colspan='6'>";
-      Html::autocompletionTextField($this,"description",array('size' => 100, 'attrs' => array('size' => 100)));
+      echo Html::input('description',['value' => $this->fields['description'], 'id' => "description" , 'width' => "100%"]);
       echo "</td>";
       echo "</tr>";
       echo "<tr class='tab_bg_1'>";
@@ -300,7 +300,7 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
 	  echo Html::link(__('URL'), $this->fields["address"]);
       echo "</td>";
       echo "<td>";
-      Html::autocompletionTextField($this, "address", array('size' => "65", 'attrs' => array('size' => 50)));
+      echo Html::input('address',['value' => $this->fields['address'], 'id' => "address" , 'size' => 50]);
       echo "</td>";
       //is_helpdesk_visible
       echo "<td>" . __('Associable to a ticket') . "</td><td>";
