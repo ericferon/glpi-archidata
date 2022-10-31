@@ -94,7 +94,7 @@ function plugin_version_archidata() {
 
 	return array (
 		'name' => _n('Data structure', 'Data structures', 2, 'archidata'),
-		'version' => '1.0.10',
+		'version' => '1.0.11',
 		'author'=>'Eric Feron',
         'license' => 'GPLv2+',
         'homepage'=>'https://github.com/ericferon/glpi-archidata',
