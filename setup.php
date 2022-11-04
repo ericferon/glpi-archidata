@@ -26,7 +26,7 @@
 
 // Init the hooks of the plugins -Needed
 function plugin_init_archidata() {
-	global $PLUGIN_HOOKS;
+	global $PLUGIN_HOOKS, $CFG_GLPI;
    
     $PLUGIN_HOOKS['csrf_compliant']['archidata'] = true;
    $PLUGIN_HOOKS['change_profile']['archidata'] = array('PluginArchidataProfile', 'initProfile');
@@ -35,6 +35,8 @@ function plugin_init_archidata() {
    $PLUGIN_HOOKS['assign_to_ticket_dropdown']['archidata'] = true;
    $PLUGIN_HOOKS['assign_to_ticket_itemtype']['archidata'] = array('PluginArchidataDataelement_Item');
    
+   $CFG_GLPI['impact_asset_types']['PluginArchidataDataelement'] = Plugin::getPhpDir("archidata", false)."/dataelement.png";
+
    Plugin::registerClass('PluginArchidataDataelement', array(
          'linkgroup_tech_types'   => true,
          'linkuser_tech_types'    => true,
@@ -94,7 +96,7 @@ function plugin_version_archidata() {
 
 	return array (
 		'name' => _n('Data structure', 'Data structures', 2, 'archidata'),
-		'version' => '1.0.11',
+		'version' => '1.0.12',
 		'author'=>'Eric Feron',
         'license' => 'GPLv2+',
         'homepage'=>'https://github.com/ericferon/glpi-archidata',

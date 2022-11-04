@@ -216,6 +216,7 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
       $this->addDefaultFormTab($ong);
       $this->addStandardTab('PluginArchidataDataelement', $ong, $options);
 //      $this->addStandardTab('PluginArchidataDataelement_Item', $ong, $options);
+      $this->addImpactTab($ong, $options);
       $this->addStandardTab('Notepad', $ong, $options);
       $this->addStandardTab('Log', $ong, $options);
 

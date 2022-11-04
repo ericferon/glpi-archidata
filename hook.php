@@ -120,10 +120,16 @@ function plugin_archidata_uninstall() {
 					"glpi_logs",
                     "glpi_items_tickets",
                     "glpi_notepads",
-                    "glpi_dropdowntranslations");
+                    "glpi_dropdowntranslations",
+                    "glpi_impactitems");
 
 	foreach($tables_glpi as $table_glpi)
 		$DB->query("DELETE FROM `$table_glpi` WHERE `itemtype` LIKE 'PluginArchidata%';");
+
+   $DB->query("DELETE
+                  FROM `glpi_impactrelations`
+                  WHERE `itemtype_source` IN ('PluginArchidataDataelement')
+                    OR `itemtype_impacted` IN ('PluginArchidataDataelement')");
 
     if (class_exists('PluginDatainjectionModel')) {
       PluginDatainjectionModel::clean(array('itemtype'=>'PluginArchidataDataelement'));
