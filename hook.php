@@ -32,7 +32,7 @@ function plugin_archidata_install() {
    $update=false;
    if (!$DB->TableExists("glpi_plugin_archidata_dataelements")) {
       
-      $DB->runFile(Plugin::getPhpDir("archidata")."/sql/empty-1.0.2.sql");
+      $DB->runFile(Plugin::getPhpDir("archidata")."/sql/empty-1.0.3.sql");
 
    } else {
 		if ($DB->TableExists("glpi_plugin_archidata_dataelements") && (!$DB->FieldExists("glpi_plugin_archidata_dataelements","plugin_archidata_masterswcomponents_id"))) {
