@@ -71,6 +71,13 @@ function plugin_init_archidata() {
    if (Session::getLoginUserID()) {
 
       $plugin = new Plugin();
+      // link to fields plugin
+      if ($plugin->isActivated('fields')
+      && Session::haveRight("plugin_archidata", READ))
+      {
+         $PLUGIN_HOOKS['plugin_fields']['archidata'] = 'PluginArchidataDataelement';
+      }
+
       if (Session::haveRight("plugin_archidata", READ)) {
 
          $PLUGIN_HOOKS['menu_toadd']['archidata'] = array('assets'   => 'PluginArchidataMenu');
@@ -96,7 +103,7 @@ function plugin_version_archidata() {
 
 	return array (
 		'name' => _n('Data structure', 'Data structures', 2, 'archidata'),
-		'version' => '1.0.13',
+		'version' => '1.0.14',
 		'author'=>'Eric Feron',
         'license' => 'GPLv2+',
         'homepage'=>'https://github.com/ericferon/glpi-archidata',

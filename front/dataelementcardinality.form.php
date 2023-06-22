@@ -25,9 +25,9 @@
  */
 
 define('GLPI_ROOT', '../../..');
-include (Plugin::getPhpDir("archidata")."/inc/includes.php");
+include ('../../../inc/includes.php');
 
 $dropdown = new PluginArchidataDataelementCardinality();
-include (Plugin::getPhpDir("archidata")."/front/dropdown.common.form.php");
+include ('../../../front/dropdown.common.form.php');
 
 ?>

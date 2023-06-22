@@ -38,51 +38,7 @@ function plugin_archidata_install() {
 		if ($DB->TableExists("glpi_plugin_archidata_dataelements") && (!$DB->FieldExists("glpi_plugin_archidata_dataelements","plugin_archidata_masterswcomponents_id"))) {
 			$DB->runFile(Plugin::getPhpDir("archidata")."/sql/update-1.0.1.sql");
 		}
-		$DB->runFile(Plugin::getPhpDir("archidata")."/sql/update-1.0.2.sql");
-   }
-   if ($DB->TableExists("glpi_plugin_archidata_profiles")) {
-   
-      $notepad_tables = array('glpi_plugin_archidata_dataelements');
-
-      foreach ($notepad_tables as $t) {
-         // Migrate data
-         if ($DB->FieldExists($t, 'notepad')) {
-            $query = "SELECT id, notepad
-                      FROM `$t`
-                      WHERE notepad IS NOT NULL
-                            AND notepad <>'';";
-            foreach ($DB->request($query) as $data) {
-               $iq = "INSERT INTO `glpi_notepads`
-                             (`itemtype`, `items_id`, `content`, `date`, `date_mod`)
-                      VALUES ('PluginArchidataDataelement', '".$data['id']."',
-                              '".addslashes($data['notepad'])."', NOW(), NOW())";
-               $DB->queryOrDie($iq, "0.85 migrate notepad data");
-            }
-            $query = "ALTER TABLE `glpi_plugin_archidata_dataelements` DROP COLUMN `notepad`;";
-            $DB->query($query);
-         }
-      }
-   }
-   
-   if ($update) {
-      $query_="SELECT *
-            FROM `glpi_plugin_archidata_profiles` ";
-      $result_=$DB->query($query_);
-      if ($DB->numrows($result_)>0) {
-
-         while ($data=$DB->fetch_array($result_)) {
-            $query="UPDATE `glpi_plugin_archidata_profiles`
-                  SET `profiles_id` = '".$data["id"]."'
-                  WHERE `id` = '".$data["id"]."';";
-            $result=$DB->query($query);
-
-         }
-      }
-
-      $query="ALTER TABLE `glpi_plugin_archidata_profiles`
-               DROP `name` ;";
-      $result=$DB->query($query);
-
+		$DB->runFile(Plugin::getPhpDir("archidata")."/sql/update-1.0.3.sql");
    }
 
    PluginArchidataProfile::initProfile();
@@ -169,6 +125,7 @@ function plugin_archidata_getDatabaseRelations() {
 		return array("glpi_plugin_archidata_dataelements"=>array("glpi_plugin_archidata_dataelements_items"=>"plugin_archidata_dataelements_id"),
 					 "glpi_plugin_archidata_dataelementtypes"=>array("glpi_plugin_archidata_dataelements"=>"plugin_archidata_dataelementtypes_id"),
 					 "glpi_plugin_archidata_dataelementcardinalities"=>array("glpi_plugin_archidata_dataelements"=>"plugin_archidata_dataelementcardinalities_id"),
+					 "glpi_plugin_archidata_dataelementclassifications"=>array("glpi_plugin_archidata_dataelements"=>"plugin_archidata_dataelementclassifications_id"),
 					 "glpi_entities"=>array("glpi_plugin_archidata_dataelements"=>"entities_id"),
 					 "glpi_groups"=>array("glpi_plugin_archidata_dataelements"=>"groups_id"),
 					 "glpi_users"=>array("glpi_plugin_archidata_dataelements"=>"users_id")
@@ -184,7 +141,8 @@ function plugin_archidata_getDropdown() {
 
 	if ($plugin->isActivated("archidata"))
 		return array('PluginArchidataDataelementCardinality'=>__('Cardinality', 'archidata'),
-                'PluginArchidataDataelementType'=>__('Type', 'archidata')
+                'PluginArchidataDataelementType'=>__('Type', 'archidata'),
+                'PluginArchidataDataelementClassification'=>__('Classification level ', 'archidata')
                );
 	else
 		return array();
