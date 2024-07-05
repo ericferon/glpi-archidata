@@ -35,7 +35,7 @@ function plugin_init_archidata() {
    $PLUGIN_HOOKS['assign_to_ticket_dropdown']['archidata'] = true;
    $PLUGIN_HOOKS['assign_to_ticket_itemtype']['archidata'] = array('PluginArchidataDataelement_Item');
    
-   $CFG_GLPI['impact_asset_types']['PluginArchidataDataelement'] = Plugin::getPhpDir("archidata", false)."/dataelement.png";
+   $CFG_GLPI['impact_asset_types']['PluginArchidataDataelement'] = Plugin::getWebDir("archidata", false)."/dataelement.png";
 
    Plugin::registerClass('PluginArchidataDataelement', array(
          'linkgroup_tech_types'   => true,
@@ -103,7 +103,7 @@ function plugin_version_archidata() {
 
 	return array (
 		'name' => _n('Data structure', 'Data structures', 2, 'archidata'),
-		'version' => '1.0.14',
+		'version' => '1.0.15',
 		'author'=>'Eric Feron',
         'license' => 'GPLv2+',
         'homepage'=>'https://github.com/ericferon/glpi-archidata',
