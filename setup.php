@@ -23,6 +23,12 @@
  along with Archidata. If not, see <http://www.gnu.org/licenses/>.
  --------------------------------------------------------------------------
  */
+define('PLUGIN_ARCHIDATA_VERSION', '1.0.16');
+
+// Minimal GLPI version, inclusive
+define('PLUGIN_ARCHIDATA_MIN_GLPI', '10.0.0');
+// Maximum GLPI version, exclusive
+define('PLUGIN_ARCHIDATA_MAX_GLPI', '11.0.99');
 
 // Init the hooks of the plugins -Needed
 function plugin_init_archidata() {
@@ -103,14 +109,15 @@ function plugin_version_archidata() {
 
 	return array (
 		'name' => _n('Data structure', 'Data structures', 2, 'archidata'),
-		'version' => '1.0.15',
+		'version' => PLUGIN_ARCHIDATA_VERSION,
 		'author'=>'Eric Feron',
         'license' => 'GPLv2+',
         'homepage'=>'https://github.com/ericferon/glpi-archidata',
         'requirements' => [
          'glpi' => [
-            'min' => '10.0',
-            'dev' => false
+            'min' => PLUGIN_ARCHIDATA_MIN_GLPI,
+            'max' => PLUGIN_ARCHIDATA_MAX_GLPI,
+//            'dev' => false
          ]
       ]
 	);
@@ -120,14 +127,14 @@ function plugin_version_archidata() {
 // Optional : check prerequisites before install : may print errors or add to message after redirect
 function plugin_archidata_check_prerequisites() {
 	global $DB;
-   if (version_compare(GLPI_VERSION, '10.0', 'lt')
-       || version_compare(GLPI_VERSION, '10.1', 'ge')) {
-      if (method_exists('Plugin', 'messageIncompatible')) {
-         echo Plugin::messageIncompatible('core', '10.0');
-      }
+   $query = "select * from glpi_plugins where directory = 'archisw' and state = 1";
+   $result_query = $DB->doQuery($query);
+   if($DB->numRows($result_query) == 1) {
+      return true;
+   } else {
+      echo "the plugin 'Apps structure (archisw)' must be installed before using 'Data structure (archidata)'";
       return false;
    }
-   return true;
 }
 
 // Uninstall process for plugin : need to return true if succeeded : may display messages or add to message after redirect

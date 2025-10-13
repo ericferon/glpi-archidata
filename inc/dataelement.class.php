@@ -287,7 +287,7 @@ class PluginArchidataDataelement extends CommonTreeDropdown {
       echo "<tr class='tab_bg_1'>";
       //master application
       echo "<td>".__('Master application', 'archidata').": </td><td>";
-      Dropdown::show('PluginArchidataMasterSwcomponent', ['name' => "plugin_archidata_masterswcomponents_id", 'value' => $this->fields["plugin_archidata_masterswcomponents_id"],'entity' => $this->fields["entities_id"]]);
+      Dropdown::show('PluginArchidataMasterSwcomponent', array('name' => "plugin_archidata_masterswcomponents_id", 'value' => $this->fields["plugin_archidata_masterswcomponents_id"],'entity' => $this->fields["entities_id"]));
       echo "</td>";
       //classification
       echo "<td>".__('Classification level', 'archidata')."</td><td>";

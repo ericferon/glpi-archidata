@@ -227,13 +227,15 @@ class PluginArchidataProfile extends Profile {
       }
 
       //Migration old rights in new ones
-      foreach ($DB->request("SELECT `id` FROM `glpi_profiles`") as $prof) {
+      foreach ($DB->request(['SELECT'=> 'id',
+                              'FROM' => 'glpi_profiles']
+               ) as $prof) {
          self::migrateOneProfile($prof['id']);
       }
-      foreach ($DB->request("SELECT *
-                           FROM `glpi_profilerights`
-                           WHERE `profiles_id`='".$_SESSION['glpiactiveprofile']['id']."'
-                              AND `name` LIKE '%plugin_archidata%'") as $prof) {
+      foreach ($DB->request(['FROM' =>  'glpi_profilerights',
+                              'WHERE' =>  ['profiles_id' => $_SESSION['glpiactiveprofile']['id'], 
+                                          'name' => ['LIKE', '%plugin_archidata%']]]
+                              ) as $prof) {
          $_SESSION['glpiactiveprofile'][$prof['name']] = $prof['rights'];
       }
    }
