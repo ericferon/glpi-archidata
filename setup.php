@@ -53,6 +53,19 @@ function plugin_init_archidata() {
    ));
    Plugin::registerClass('PluginArchidataProfile',
                          array('addtabon' => 'Profile'));
+
+// Register the dropdown itemtypes so that GLPI keeps their real case.
+// Without this, GLPI derives the itemtype from the table name and gets
+// 'PluginArchidataDataelementtype' (lowercase t), while the foreign key
+// 'plugin_archidata_dataelementtypes_id' resolves to the real class
+// 'PluginArchidataDataelementType'. DbUtils::getDbRelations() compares both
+// with a strict !== and logs a warning on every item deletion.
+   $dropdowns = array('PluginArchidataDataelementType',
+                      'PluginArchidataDataelementCardinality',
+                      'PluginArchidataDataelementClassification');
+   foreach ($dropdowns as $dropdown) {
+      getTableForItemType($dropdown);
+   }
                          
 // Add links to other plugins
    $types = array('PluginArchimapGraph');
